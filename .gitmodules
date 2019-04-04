@@ -1,0 +1,3 @@
+[submodule "tiled-reader"]
+	path = tiled-reader
+	url = git@github.com:clubycoder/tiled-reader.git
