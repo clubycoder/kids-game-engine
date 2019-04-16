@@ -1,0 +1,106 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>luby.kids</groupId>
+  <artifactId>kids-game-engine</artifactId>
+  <version>0.1.0</version>
+
+  <packaging>jar</packaging>
+
+  <properties>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+
+    <jmonkey.version>3.2.2-stable</jmonkey.version>
+
+    <junit.version>4.12</junit.version>
+
+    <luby.kids.tiled-reader.version>0.1.0</luby.kids.tiled-reader.version>
+  </properties>
+
+  <modules>
+    <module>tiled-reader</module>
+  </modules>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.jmonkeyengine</groupId>
+      <artifactId>jme3-core</artifactId>
+      <version>${jmonkey.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jmonkeyengine</groupId>
+      <artifactId>jme3-desktop</artifactId>
+      <version>${jmonkey.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jmonkeyengine</groupId>
+      <artifactId>jme3-lwjgl</artifactId>
+      <version>${jmonkey.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jmonkeyengine</groupId>
+      <artifactId>jme3-plugins</artifactId>
+      <version>${jmonkey.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jmonkeyengine</groupId>
+      <artifactId>jme3-blender</artifactId>
+      <version>${jmonkey.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jmonkeyengine</groupId>
+      <artifactId>jme3-effects</artifactId>
+      <version>${jmonkey.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jmonkeyengine</groupId>
+      <artifactId>jme3-jogg</artifactId>
+      <version>${jmonkey.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>luby.kids</groupId>
+      <artifactId>tiled-reader</artifactId>
+      <version>${luby.kids.tiled-reader.version}</version>
+    </dependency>
+
+    <!-- Testing -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>luby.kids</groupId>
+      <artifactId>tiled-reader</artifactId>
+      <version>${luby.kids.tiled-reader.version}</version>
+      <type>test-jar</type>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <repositories>
+    <repository>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <id>bintray-jmonkeyengine-org.jmonkeyengine</id>
+      <name>bintray</name>
+      <url>https://dl.bintray.com/jmonkeyengine/org.jmonkeyengine</url>
+    </repository>
+  </repositories>
+  <pluginRepositories>
+    <pluginRepository>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <id>bintray-jmonkeyengine-org.jmonkeyengine</id>
+      <name>bintray-plugins</name>
+      <url>https://dl.bintray.com/jmonkeyengine/org.jmonkeyengine</url>
+    </pluginRepository>
+  </pluginRepositories>
+</project>
