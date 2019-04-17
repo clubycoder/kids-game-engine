@@ -97,13 +97,7 @@ public class TSXTileSet {
             }
             material.getAdditionalRenderState().setBlendMode(RenderState.BlendMode.AlphaAdditive);
 
-            Material material2 = new Material(assetManager, "Common/MatDefs/Gui/Gui.j3md");
-            material2.setName(path + "-tilemap");
-            material2.setColor("Color", ColorRGBA.White);
-            material2.getAdditionalRenderState().setBlendMode(RenderState.BlendMode.Alpha);
-            material2.setTexture("Texture", texture);
-
-            materials.put(path, material2);
+            materials.put(path, material);
         }
         return materials.get(path);
     }
@@ -117,12 +111,12 @@ public class TSXTileSet {
             String name = tileSet.getTileSet().getName() + "-" + tile.getTile().getId() + "-tile";
             logger.log(Level.INFO, "TILE[" + tile.getTile().getId() + "]: "
                     + "name = " + name + ", "
-                    + "x = " + tile.getOffset().getX() + ", "
-                    + "y = " + tile.getOffset().getY()
+                    + "x-offset = " + tile.getOffset().getX() + ", "
+                    + "y-offset = " + tile.getOffset().getY()
             );
             Material material = getMaterial(tile.getTile().getImage());
-            float x = tile.getOffset().getX();
-            float y = tile.getOffset().getY();
+            float xOffset = tile.getOffset().getX();
+            float yOffset = tile.getOffset().getY();
             int width = tile.getWidth();
             int height = tile.getHeight();
             Texture2D texture = (Texture2D)(
@@ -133,73 +127,19 @@ public class TSXTileSet {
             float textureWidth = texture.getImage().getWidth();
             float textureHeight = texture.getImage().getHeight();
 
-            /**
-             * (u0, v1)  (u1, v1)
-             * *---------*
-             * |       _/|
-             * |     _/  |
-             * |   _/    |
-             * | _/      |
-             * |/        |
-             * *---------*
-             * (u0, v0)  (u1, v0)
-             */
-            float u0 = x / textureWidth;
-            float v0 = (textureHeight - y - height) / textureHeight;
-            float u1 = (x + width) / textureWidth;
-            float v1 = (textureHeight - y) / textureHeight;
-
-            /*
-            float u0 = x / textureWidth;
-            float v0 = y / textureWidth;
-            float u1 = (x + width) / textureWidth;
-            float v1 = (y + height) / textureHeight;
-             */
+            // Texture coordinates
+            float u0 = xOffset / textureWidth;
+            float v0 = (textureHeight - yOffset - height) / textureHeight;
+            float u1 = (xOffset + width) / textureWidth;
+            float v1 = (textureHeight - yOffset) / textureHeight;
             float[] textureCoordinates = new float[] { u0, v0, u1, v0, u1, v1, u0, v1 };
 
-            /**
-             * 3         2
-             * *---------*
-             * |       _/|
-             * |     _/  |
-             * |   _/    |
-             * | _/      |
-             * |/        |
-             * *---------*
-             * 0         1
-             */
-            float[] vertices = new float[] {
-                    0, 0, height,
-                    width, 0, height,
-                    width, 0, 0,
-                    0, 0, 0
-            };
-
-            short[] indexes = new short[] { 0, 1, 2, 0, 2, 3 };
-
-            /**
-             * Normals are all the same: to Vector3f.UNIT_Y
-             */
-            float[] normals = new float[] {
-                    0, 1, 0,
-                    0, 1, 0,
-                    0, 1, 0,
-                    0, 1, 0
-            };
-
-            Mesh mesh = new Mesh();
-            mesh.setBuffer(VertexBuffer.Type.Position, 3, vertices);
-            mesh.setBuffer(VertexBuffer.Type.TexCoord, 2, textureCoordinates);
-            mesh.setBuffer(VertexBuffer.Type.Normal, 3, normals);
-            mesh.setBuffer(VertexBuffer.Type.Index, 3, indexes);
-            mesh.updateBound();
-            mesh.setStatic();
-
-            Geometry geometry = new Geometry(name, mesh);
+            // Mesh
+            Geometry geometry = new Geometry(name, new Quad(width, height, true));
+            geometry.getMesh().setBuffer(VertexBuffer.Type.TexCoord, 2, textureCoordinates);
             geometry.setMaterial(material);
-            geometry.setQueueBucket(RenderQueue.Bucket.Gui);
 
-            // If this tile has animation frames attach an animation controller to it
+            // If this tile has animation frames, attach an animation controller to it
             Animation animation = tile.getTile().getAnimation();
             if (animation != null && animation.getFrame() != null && animation.getFrame().size() > 1) {
                 geometry.setBatchHint(Spatial.BatchHint.Never);
@@ -207,16 +147,8 @@ public class TSXTileSet {
                 AnimatedTileControl control = new AnimatedTileControl(this, tile);
                 geometry.addControl(control);
             }
-            geometry.setCullHint(Spatial.CullHint.Never);
 
-            Geometry geometry2 = new Geometry(name, new Quad(width, height));
-            geometry2.getMesh().setBuffer(VertexBuffer.Type.TexCoord, 2, textureCoordinates);
-            // geometry2.setLocalScale(new Vector3f(64, 64, 1f));
-            geometry2.setMaterial(material);
-            geometry2.setQueueBucket(RenderQueue.Bucket.Gui);
-            geometry2.setCullHint(Spatial.CullHint.Never);
-
-            geometries.put(tile.getTile().getId(), geometry2);
+            geometries.put(tile.getTile().getId(), geometry);
         });
     }
 }
