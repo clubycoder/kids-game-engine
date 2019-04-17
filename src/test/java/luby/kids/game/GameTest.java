@@ -9,7 +9,7 @@ public class GameTest extends Game {
     final Object stopMutex = new Object();
 
     public GameTest(String name) {
-        super(name);
+        super(name, 1280, 720);
     }
 
     @Override

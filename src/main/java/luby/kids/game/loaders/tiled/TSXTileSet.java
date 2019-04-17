@@ -95,7 +95,6 @@ public class TSXTileSet {
                 ColorRGBA transparentColor = MaterialUtils.toColorRGBA(image.getTrans());
                 material.setColor("TransColor", transparentColor);
             }
-            material.getAdditionalRenderState().setBlendMode(RenderState.BlendMode.AlphaAdditive);
 
             materials.put(path, material);
         }
