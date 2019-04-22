@@ -1,0 +1,34 @@
+MaterialDef Tile {
+
+    MaterialParameters {
+        Texture2D ColorMap
+        Color Color (Color)
+        Color TransColor
+    }
+    
+    Technique {
+        VertexShader GLSL100:   TileMap/MatDefs/Tile/Tile.vert
+        FragmentShader GLSL100: TileMap/MatDefs/Tile/Tile.frag
+
+        WorldParameters {
+            WorldViewProjectionMatrix
+            ViewProjectionMatrix
+            ViewMatrix
+        }
+
+        RenderState {
+            Blend Alpha
+            FaceCull Off
+//            DepthWrite On
+//            DepthTest On
+//            ColorWrite On
+        }
+        
+        Defines {
+            HAS_COLORMAP : ColorMap
+            HAS_COLOR : Color
+            TRANS_COLOR: TransColor
+        }
+    }
+
+}

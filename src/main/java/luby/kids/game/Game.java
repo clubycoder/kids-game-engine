@@ -9,6 +9,7 @@ import com.jme3.system.AppSettings;
 import com.jme3.texture.Texture2D;
 import com.jme3.ui.Picture;
 
+import luby.kids.game.loaders.aseprite.ASELoader;
 import luby.kids.game.loaders.tiled.TMXLoader;
 import luby.kids.game.loaders.tiled.TSXLoader;
 
@@ -83,6 +84,7 @@ public class Game extends SimpleApplication {
     public void gameSetup() {
         assetManager.registerLoader(TSXLoader.class, "tsx");
         assetManager.registerLoader(TMXLoader.class, "tmx", "tmx.gz");
+        assetManager.registerLoader(ASELoader.class, "ase-json");
     }
 
     public void gameUpdate(float timePassed) {
