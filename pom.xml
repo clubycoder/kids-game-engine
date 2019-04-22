@@ -19,10 +19,6 @@
     <luby.kids.tiled-reader.version>0.1.0</luby.kids.tiled-reader.version>
   </properties>
 
-  <modules>
-    <module>tiled-reader</module>
-  </modules>
-
   <dependencies>
     <dependency>
       <groupId>com.google.code.gson</groupId>
@@ -109,8 +105,16 @@
       <snapshots>
         <enabled>false</enabled>
       </snapshots>
+      <id>bintray-clubycoder-kids</id>
+      <name>bintray-clubycoder-kids</name>
+      <url>https://dl.bintray.com/clubycoder/kids</url>
+    </repository>
+    <repository>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
       <id>bintray-jmonkeyengine-org.jmonkeyengine</id>
-      <name>bintray</name>
+      <name>bintray-jmonkeyengine-org.jmonkeyengine</name>
       <url>https://dl.bintray.com/jmonkeyengine/org.jmonkeyengine</url>
     </repository>
   </repositories>
@@ -120,8 +124,14 @@
         <enabled>false</enabled>
       </snapshots>
       <id>bintray-jmonkeyengine-org.jmonkeyengine</id>
-      <name>bintray-plugins</name>
+      <name>bintray-jmonkeyengine-org.jmonkeyengine-plugins</name>
       <url>https://dl.bintray.com/jmonkeyengine/org.jmonkeyengine</url>
     </pluginRepository>
   </pluginRepositories>
+  <distributionManagement>
+    <repository>
+      <id>clubycoder-bintray-kids-release</id>
+      <url>https://api.bintray.com/maven/clubycoder/kids/release/;publish=1</url>
+    </repository>
+  </distributionManagement>
 </project>
