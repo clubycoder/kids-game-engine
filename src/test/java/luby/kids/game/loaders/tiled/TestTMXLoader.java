@@ -4,13 +4,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static org.junit.Assert.*;
-
-import com.jme3.asset.ModelKey;
-import com.jme3.scene.Node;
 import org.junit.Test;
 
+import com.jme3.scene.Node;
 import com.jme3.math.Vector3f;
 
+import luby.kids.game.asset.GameModelKey;
 import luby.kids.game.Game;
 import luby.kids.game.GameTest;
 
@@ -26,7 +25,7 @@ public class TestTMXLoader {
                 set2D();
                 cam.setLocation(new Vector3f(0, 0, 0.5f));
 
-                TMXScene map = (TMXScene)assetManager.loadAsset(new ModelKey("map-test1.tmx"));
+                TMXScene map = (TMXScene)assetManager.loadAsset(new GameModelKey("map-test1.tmx"));
                 assertEquals(2, map.getChildren().size());
                 System.out.println("MAP "
                         + "name = " + map.getName() + ", "

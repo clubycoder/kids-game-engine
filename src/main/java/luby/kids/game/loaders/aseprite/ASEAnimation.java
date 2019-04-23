@@ -1,12 +1,13 @@
 package luby.kids.game.loaders.aseprite;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.gson.annotations.SerializedName;
+
 import luby.kids.game.sprites.SpriteAnimation;
 import luby.kids.game.sprites.SpriteFrame;
 import luby.kids.game.utils.gson.SerializedRequired;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *   "frameTags": [

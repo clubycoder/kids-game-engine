@@ -1,7 +1,10 @@
 package luby.kids.game;
 
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import com.jme3.input.controls.ActionListener;
 
 public class GameTest extends Game {
     private static final Logger logger = Logger.getLogger(GameTest.class.getName());
@@ -12,13 +15,30 @@ public class GameTest extends Game {
         super(name, 1280, 720);
     }
 
+    private AtomicBoolean caughtAction = new AtomicBoolean(false);
+
+    @Override
+    public void gameSetup() {
+        super.gameSetup();
+        ActionListener actionListener = new ActionListener() {
+            @Override
+            public void onAction(String s, boolean b, float v) {
+                caughtAction.set(true);
+            }
+        };
+        inputManager.addListener(actionListener, InputActions.all);
+    }
+
     @Override
     public void start() {
         super.start();
         synchronized (stopMutex) {
             logger.log(Level.INFO, "Waiting for game to stop or 5 seconds");
             try {
-                stopMutex.wait(5000);
+                do {
+                    caughtAction.set(false);
+                    stopMutex.wait(5000);
+                } while (caughtAction.get());
             } catch (InterruptedException e) {
                 logger.log(Level.INFO, "Interupted by ", e);
             }

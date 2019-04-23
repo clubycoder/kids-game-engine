@@ -1,10 +1,11 @@
 package luby.kids.game.loaders.aseprite;
 
+import java.nio.FloatBuffer;
+
 import com.google.gson.annotations.SerializedName;
+
 import luby.kids.game.sprites.SpriteFrame;
 import luby.kids.game.utils.gson.SerializedRequired;
-
-import java.nio.FloatBuffer;
 
 /**
  * {

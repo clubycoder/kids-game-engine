@@ -1,9 +1,10 @@
 package luby.kids.game.loaders.aseprite;
 
-import com.google.gson.annotations.SerializedName;
-import luby.kids.game.utils.gson.SerializedRequired;
-
 import java.util.List;
+
+import com.google.gson.annotations.SerializedName;
+
+import luby.kids.game.utils.gson.SerializedRequired;
 
 /**
  * "meta": {

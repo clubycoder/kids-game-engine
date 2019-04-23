@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import com.google.gson.*;
+
 import com.jme3.asset.AssetInfo;
 import com.jme3.asset.AssetManager;
 import com.jme3.asset.TextureKey;
@@ -18,8 +19,8 @@ import com.jme3.scene.VertexBuffer;
 import com.jme3.scene.shape.Quad;
 import com.jme3.texture.Texture;
 import com.jme3.texture.Texture2D;
-
 import com.jme3.util.BufferUtils;
+
 import luby.kids.game.loaders.AssetManagerUtils;
 import luby.kids.game.sprites.SpriteAnimControl;
 import luby.kids.game.sprites.SpriteAnimation;
@@ -133,9 +134,13 @@ public class ASESprite extends Node {
         // Material
         Material material = getMaterial(aseMeta.getImagePath());
 
-        // Texture Coordinates for each frame
+        // Base settings
         float textureWidth = aseMeta.getImageSize().getWidth();
         float textureHeight = aseMeta.getImageSize().getHeight();
+        int firstFrameWidth = aseFrames.get(0).getFrame().getWidth();
+        int firstFrameHeight = aseFrames.get(0).getFrame().getHeight();
+
+        // Texture Coordinates for each frame
         aseFrames.forEach(frame -> {
             float xOffset = frame.getFrame().getX();
             float yOffset = frame.getFrame().getY();
@@ -151,13 +156,14 @@ public class ASESprite extends Node {
 
         // Mesh
         Geometry geometry = new Geometry(name, new Quad(
-                aseFrames.get(0).getFrame().getWidth(),
-                aseFrames.get(0).getFrame().getHeight(),
+                firstFrameWidth,
+                firstFrameHeight,
                 true
         ));
         geometry.getMesh().setBuffer(VertexBuffer.Type.TexCoord, 2, aseFrames.get(0).getTextureCoordinates());
         geometry.setMaterial(material);
         geometry.setBatchHint(Spatial.BatchHint.Never);
+        geometry.move(-(firstFrameWidth / 2.0F), 0.0F, 0.0F);
 
         // Create the animation control
         SpriteAnimControl control = new SpriteAnimControl();
